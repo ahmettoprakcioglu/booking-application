@@ -6,9 +6,22 @@ export async function getCabins() {
     .select('*');
 
   if (error) {
-    const errorMessage = 'Cabins could not be loaded';
-    console.error(errorMessage);
+    console.error(error);
     throw new Error('Cabins could not be loaded');
+  }
+
+  return data;
+}
+
+export async function deleteCabin(id) {
+  const { data, error } = await supabase
+    .from('cabins')
+    .delete()
+    .eq('id', id);
+
+  if (error) {
+    console.error(error);
+    throw new Error('Cabins could not be deleted');
   }
 
   return data;
